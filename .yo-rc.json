@@ -1,6 +1,6 @@
 {
   "generator-jhipster-nodejs": {
-    "jhipsterVersion": "6.4.1",
+    "jhipsterVersion": "6.6.0",
     "applicationType": "monolith",
     "baseName": "gen",
     "packageName": "com.jhipster.node",
@@ -26,7 +26,8 @@
     "clientThemeVariant": ""
   },
   "generator-jhipster": {
-    "jhipsterVersion": "6.4.1",
+    "jhipsterVersion": "6.6.0",
+    "creationTimestamp": 1578751440967,
     "applicationType": "monolith",
     "baseName": "gen",
     "testFrameworks": [],
@@ -36,7 +37,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.1"
+        "version": "1.0.0-beta.2"
       }
     ],
     "enableTranslation": false,
@@ -44,7 +45,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.1"
+        "version": "1.0.0-beta.2"
       }
     ]
   }

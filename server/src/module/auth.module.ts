@@ -4,7 +4,6 @@ import { UserModule } from '../module/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { Oauth2Strategy } from '../security/passport.oauth2.strategy';
 import { UserOauth2Controller } from '../web/rest/user.oauth2.controller';
-import { config } from '../config/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorityRepository } from '../repository/authority.repository';
 

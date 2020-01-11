@@ -1,11 +1,11 @@
-import { CanActivate, ExecutionContext, Injectable, Logger } from '@nestjs/common';
+import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { AuthGuard as NestAuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class AuthGuard extends NestAuthGuard('oauth2') {
   logger = new Logger('authGuard');
 
-  canActivate(context: ExecutionContext) {
+  canActivate(context: ExecutionContext): any {
     const request = context.switchToHttp().getRequest();
 
     if (request.session.user) {

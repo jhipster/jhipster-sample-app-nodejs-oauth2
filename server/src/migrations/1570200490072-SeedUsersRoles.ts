@@ -1,5 +1,4 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { User } from '../domain/user.entity';
 import { Authority } from '../domain/authority.entity';
 
 export class SeedUsersRoles1570200490072 implements MigrationInterface {
@@ -17,6 +16,6 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
       .execute();
   }
 
-  // tslint:disable-next-line
+  // eslint-disable-next-line
   public async down(queryRunner: QueryRunner): Promise<any> {}
 }
