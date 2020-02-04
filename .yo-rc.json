@@ -23,7 +23,8 @@
     "clientPackageManager": "npm",
     "clientFramework": "react",
     "clientTheme": "none",
-    "clientThemeVariant": ""
+    "clientThemeVariant": "",
+    "enableTranslation": false
   },
   "generator-jhipster": {
     "jhipsterVersion": "6.6.0",
@@ -37,7 +38,7 @@
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.2"
+        "version": "1.0.0-beta.3"
       }
     ],
     "enableTranslation": false,
@@ -45,7 +46,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.0.0-beta.2"
+        "version": "1.0.0-beta.3"
       }
     ]
   }

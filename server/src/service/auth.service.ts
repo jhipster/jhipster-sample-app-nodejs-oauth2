@@ -10,7 +10,7 @@ export class AuthService {
   constructor(@InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository, private userService: UserService) {}
 
   async findUserOrSave(loginUser: User): Promise<User | undefined> {
-    let userFound = await this.userService.findByfields({ where: { login: loginUser.login }, relations: ['authorities'] });
+    let userFound = await this.userService.findByfields({ where: { login: loginUser.login } });
 
     if (!userFound) {
       const authoritiesName = [];
