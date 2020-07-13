@@ -57,7 +57,7 @@ describe('Header', () => {
     const nav = component.find(Nav);
     expect(nav.length).toEqual(1);
     expect(nav.find(Home).length).toEqual(1);
-    expect(nav.find(AdminMenu).length).toEqual(1);
+    expect(nav.find(AdminMenu).length).toEqual(0);
     expect(nav.find(EntitiesMenu).length).toEqual(1);
 
     expect(nav.find(AccountMenu).length).toEqual(1);
@@ -75,7 +75,7 @@ describe('Header', () => {
     const nav = component.find(Nav);
     expect(nav.length).toEqual(1);
     expect(nav.find(Home).length).toEqual(1);
-    expect(nav.find(AdminMenu).length).toEqual(1);
+    expect(nav.find(AdminMenu).length).toEqual(0);
     expect(nav.find(EntitiesMenu).length).toEqual(1);
 
     expect(nav.find(AccountMenu).length).toEqual(1);
