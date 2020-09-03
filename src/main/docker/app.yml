@@ -7,7 +7,7 @@ services:
       - NODE_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
       - NODE_ENV=dev
     ports:
-      - 8081:8081:
+      - 8081:8081
   keycloak:
     extends:
       file: keycloak.yml
