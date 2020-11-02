@@ -4,6 +4,7 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 import { ApiUseTags, ApiResponse, ApiOperation, ApiExcludeEndpoint } from '@nestjs/swagger';
 import { AuthGuard, RolesGuard } from '../../security';
 import { oauth2Config } from '../../security/oauth2.config';
+import { config } from '../../config';
 
 @Controller()
 @UseInterceptors(LoggingInterceptor)

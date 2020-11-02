@@ -38,6 +38,13 @@ async function bootstrap(): Promise<void> {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.use((req: any, res: any, next: any) => {
+    if (req.session.user == null && req.path.indexOf(config.get('jhipster.swagger.path')) === 0) {
+      return res.redirect('/oauth2/authorization/oidc');
+    }
+    next();
+  });
+
   const staticClientPath = path.join(__dirname, '../dist/classes/static');
   if (fs.existsSync(staticClientPath)) {
     app.use(express.static(staticClientPath));
@@ -82,12 +89,13 @@ function registerAsEurekaService(): void {
         instanceId: config.get('eureka.instance.instanceId'),
         hostName: config.get('ipAddress') || 'localhost',
         ipAddr: config.get('ipAddress') || '127.0.0.1',
+        status: `UP`,
         port: {
           $: port,
           '@enabled': 'true'
         },
         vipAddress: config.get('ipAddress') || 'localhost',
-        statusPageUrl: `http://${config.get('ipAddress')}:${port}/`,
+        homePageUrl: `http://${config.get('ipAddress')}:${port}/`,
         dataCenterInfo: {
           '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
           name: 'MyOwn'
