@@ -1,7 +1,7 @@
 {
   "extends": ["jhipster-react"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.e2e.json"
   },
   "rules": {
     "import/no-unresolved": "off",

@@ -4,42 +4,44 @@ import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
 
 describe('App', () => {
-  let app: INestApplication;
+    let app: INestApplication;
 
-  const infoService = {
-    activeProfiles: 'no',
-    'display-ribbon-on-profiles': 'no'
-  };
-  const testUserLogin: any = {
-    session: {
-      user: {
-        username: 'system'
-      }
-    }
-  };
+    const infoService = {
+        'activeProfiles': 'no',
+        'display-ribbon-on-profiles': 'no',
+    };
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule]
-    }).compile();
+    const testRequest: any = {};
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+    beforeEach(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
 
-  it('/GET up running info OK', () =>
-    request(app.getHttpServer())
-      .get('/management/info')
-      .expect(200)
-      .expect(infoService));
+        app = moduleFixture.createNestApplication();
+        await app.init();
+    });
 
-  it('/POST security oauth2 adding OK', () =>
-    request(app.getHttpServer())
-      .post('/api/logout')
-      .send(testUserLogin)
-      .expect(201));
+    it('/GET up running info OK', () =>
+        request(app.getHttpServer())
+            .get('/management/info')
+            .expect(200)
+            .expect(infoService));
 
-  afterEach(async () => {
-    await app.close();
-  });
+    it('/POST security oauth2 does not perform logout', () =>
+        request(app.getHttpServer())
+            .post('/api/logout')
+            .send(testRequest)
+            .expect({})
+            .expect(201));
+
+    it('/GET account not logged', () =>
+        request(app.getHttpServer())
+            .get('/api/account')
+            .expect(200)
+            .expect({}));
+
+    afterEach(async () => {
+        await app.close();
+    });
 });

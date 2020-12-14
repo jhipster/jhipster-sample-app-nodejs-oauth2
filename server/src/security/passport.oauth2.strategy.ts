@@ -11,50 +11,50 @@ const clientSecret = config.get('jhipster.security.oauth2.client.registration.oi
 
 @Injectable()
 export class Oauth2Strategy extends PassportStrategy(Strategy) {
-  logger = new Logger('oauth2');
+    logger = new Logger('oauth2');
 
-  constructor(private readonly authService: AuthService) {
-    super(
-      {
-        authorizationURL: oauth2Config.authorizationURL,
-        tokenURL: oauth2Config.tokenURL,
-        clientID: `${clientID}`,
-        clientSecret: `${clientSecret}`,
-        callbackURL: oauth2Config.callbackURL,
-        scope: 'openid profile',
-        state: true,
-        pkce: true
-      },
-      async (accessToken: any, refreshToken: any, params: any, user: any, done: any) => {
-        const idToken = params.id_token;
-        await this.authService.findUserOrSave(user);
-        user.idToken = idToken;
-        return done(null, user);
-      }
-    );
-  }
-
-  userProfile(accessToken: any, done: any): Promise<any> {
-    try {
-      const profile: any = jwtDecode(accessToken);
-      const userProfile = {
-        login: profile.preferred_username,
-        password: '***',
-        firstName: profile.given_name,
-        lastName: profile.family_name,
-        email: profile.email,
-        imageUrl: '',
-        activated: true,
-        langKey: 'en',
-        createdBy: 'system',
-        lastModifiedBy: 'system',
-        authorities: ['ROLE_ADMIN', 'ROLE_USER']
-      };
-
-      return done(null, userProfile);
-    } catch (e) {
-      this.logger.error(e);
-      return done(new UnauthorizedException({ message: 'error to retrieve user info from accessToken' }), false);
+    constructor(private readonly authService: AuthService) {
+        super(
+            {
+                authorizationURL: oauth2Config.authorizationURL,
+                tokenURL: oauth2Config.tokenURL,
+                clientID: `${clientID}`,
+                clientSecret: `${clientSecret}`,
+                callbackURL: oauth2Config.callbackURL,
+                scope: 'openid profile',
+                state: true,
+                pkce: true,
+            },
+            async (accessToken: any, refreshToken: any, params: any, user: any, done: any) => {
+                const idToken = params.id_token;
+                await this.authService.findUserOrSave(user);
+                user.idToken = idToken;
+                return done(null, user);
+            }
+        );
     }
-  }
+
+    userProfile(accessToken: any, done: any): Promise<any> {
+        try {
+            const profile: any = jwtDecode(accessToken);
+            const userProfile = {
+                login: profile.preferred_username,
+                password: '***',
+                firstName: profile.given_name,
+                lastName: profile.family_name,
+                email: profile.email,
+                imageUrl: '',
+                activated: true,
+                langKey: 'en',
+                createdBy: 'system',
+                lastModifiedBy: 'system',
+                authorities: ['ROLE_ADMIN', 'ROLE_USER'],
+            };
+
+            return done(null, userProfile);
+        } catch (e) {
+            this.logger.error(e);
+            return done(new UnauthorizedException({ message: 'error to retrieve user info from accessToken' }), false);
+        }
+    }
 }

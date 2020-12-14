@@ -31,14 +31,14 @@
     "creationTimestamp": 1578751440967,
     "applicationType": "monolith",
     "baseName": "gen",
-    "testFrameworks": [],
+    "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.3.0"
+        "version": "1.4.0"
       }
     ],
     "enableTranslation": false,
@@ -46,7 +46,7 @@
     "blueprints": [
       {
         "name": "generator-jhipster-nodejs",
-        "version": "1.3.0"
+        "version": "1.4.0"
       }
     ],
     "packageName": "com.jhipster.node",

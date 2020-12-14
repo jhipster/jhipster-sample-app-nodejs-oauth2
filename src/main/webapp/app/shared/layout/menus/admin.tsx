@@ -5,26 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink as Link } from 'react-router-dom';
 import { NavDropdown } from './menu-components';
 
-const adminMenuItems = (
-  <>
-    <MenuItem icon="tachometer-alt" to="/admin/metrics">
-      Metrics
-    </MenuItem>
-    <MenuItem icon="heart" to="/admin/health">
-      Health
-    </MenuItem>
-    <MenuItem icon="list" to="/admin/configuration">
-      Configuration
-    </MenuItem>
-    <MenuItem icon="bell" to="/admin/audits">
-      Audits
-    </MenuItem>
-    {/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}
-    <MenuItem icon="tasks" to="/admin/logs">
-      Logs
-    </MenuItem>
-  </>
-);
+const adminMenuItems = <>{/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}</>;
 
 const swaggerItem = (
   <MenuItem icon="book" to="/admin/docs">

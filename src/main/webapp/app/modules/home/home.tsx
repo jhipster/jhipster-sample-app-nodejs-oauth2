@@ -17,7 +17,7 @@ export const Home = (props: IHomeProp) => {
   return (
     <Row>
       <Col md="9">
-        <h2>Welcome, Node Hipster Official Blueprint!</h2>
+        <h2>Welcome, Java Hipster!</h2>
         <p className="lead">This is your homepage</p>
         {account && account.login ? (
           <div>
