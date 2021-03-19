@@ -144,7 +144,7 @@ npm run start:app
 #### Building
 
 ```bash
-npm build:app
+npm run build:app
 ```
 
 The build folder with all compiled sources will be **server/dist**.
