@@ -10,7 +10,7 @@ import userManagement, { ACTION_TYPES, getUsers } from 'app/shared/reducers/user
 describe('User management reducer tests', () => {
   const initialState = {
     users: [],
-    errorMessage: null
+    errorMessage: null,
   };
 
   describe('Common', () => {
@@ -23,7 +23,7 @@ describe('User management reducer tests', () => {
     it('should set state to failed and put an error message in errorMessage', () => {
       expect(userManagement(undefined, { type: FAILURE(ACTION_TYPES.FETCH_USERS), payload: 'something happened' })).toEqual({
         ...initialState,
-        errorMessage: 'something happened'
+        errorMessage: 'something happened',
       });
     });
   });
@@ -33,7 +33,7 @@ describe('User management reducer tests', () => {
       const payload = { data: 'some handsome users' };
       const toTest = userManagement(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_USERS), payload });
       expect(toTest).toMatchObject({
-        users: payload.data
+        users: payload.data,
       });
     });
   });
@@ -51,12 +51,12 @@ describe('User management reducer tests', () => {
     it('dispatches FETCH_USERS_PENDING and FETCH_USERS_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_USERS)
+          type: REQUEST(ACTION_TYPES.FETCH_USERS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_USERS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getUsers()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
@@ -64,12 +64,12 @@ describe('User management reducer tests', () => {
     it('dispatches FETCH_USERS_PENDING and FETCH_USERS_FULFILLED actions with pagination options', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_USERS)
+          type: REQUEST(ACTION_TYPES.FETCH_USERS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_USERS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getUsers(1, 20, 'id,desc')).then(() => expect(store.getActions()).toEqual(expectedActions));
     });

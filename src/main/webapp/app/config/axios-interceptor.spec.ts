@@ -1,7 +1,7 @@
 import axios from 'axios';
 import sinon from 'sinon';
 
-import setupAxiosInterceptors from 'app/config/axios-interceptor';
+import setupAxiosInterceptors from './axios-interceptor';
 
 describe('Axios Interceptor', () => {
   describe('setupAxiosInterceptors', () => {
@@ -11,7 +11,7 @@ describe('Axios Interceptor', () => {
 
     it('onRequestSuccess is called on fulfilled request', () => {
       expect((client.interceptors.request as any).handlers[0].fulfilled({ data: 'foo', url: '/test' })).toMatchObject({
-        data: 'foo'
+        data: 'foo',
       });
     });
     it('onResponseSuccess is called on fulfilled response', () => {
@@ -22,8 +22,8 @@ describe('Axios Interceptor', () => {
         response: {
           statusText: 'NotFound',
           status: 403,
-          data: { message: 'Page not found' }
-        }
+          data: { message: 'Page not found' },
+        },
       });
       expect(onUnauthenticated.calledOnce).toBe(true);
     });

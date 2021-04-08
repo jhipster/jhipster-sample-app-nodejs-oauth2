@@ -2,14 +2,13 @@ import React from 'react';
 import MenuItem from 'app/shared/layout/menus/menu-item';
 import { DropdownItem } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NavLink as Link } from 'react-router-dom';
 
 import { getLoginUrl } from 'app/shared/util/url-utils';
 import { NavDropdown } from './menu-components';
 
 const accountMenuItemsAuthenticated = (
   <>
-    <MenuItem icon="sign-out-alt" to="/logout">
+    <MenuItem icon="sign-out-alt" to="/logout" data-cy="logout">
       Sign out
     </MenuItem>
   </>
@@ -17,14 +16,14 @@ const accountMenuItemsAuthenticated = (
 
 const accountMenuItems = (
   <>
-    <DropdownItem id="login-item" tag="a" href={getLoginUrl()}>
+    <DropdownItem id="login-item" tag="a" href={getLoginUrl()} data-cy="login">
       <FontAwesomeIcon icon="sign-in-alt" /> Sign in
     </DropdownItem>
   </>
 );
 
 export const AccountMenu = ({ isAuthenticated = false }) => (
-  <NavDropdown icon="user" name="Account" id="account-menu">
+  <NavDropdown icon="user" name="Account" id="account-menu" data-cy="accountMenu">
     {isAuthenticated ? accountMenuItemsAuthenticated : accountMenuItems}
   </NavDropdown>
 );

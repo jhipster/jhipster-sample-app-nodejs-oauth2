@@ -1,5 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
+import 'app/config/dayjs.ts';
 
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -18,10 +19,7 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
-const baseHref = document
-  .querySelector('base')
-  .getAttribute('href')
-  .replace(/\/$/, '');
+const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
 export interface IAppProps extends StateProps, DispatchProps {}
 
@@ -42,7 +40,7 @@ export const App = (props: IAppProps) => {
             isAdmin={props.isAdmin}
             ribbonEnv={props.ribbonEnv}
             isInProduction={props.isInProduction}
-            isSwaggerEnabled={props.isSwaggerEnabled}
+            isOpenAPIEnabled={props.isOpenAPIEnabled}
           />
         </ErrorBoundary>
         <div className="container-fluid view-container" id="app-view-container">
@@ -63,7 +61,7 @@ const mapStateToProps = ({ authentication, applicationProfile }: IRootState) => 
   isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
   ribbonEnv: applicationProfile.ribbonEnv,
   isInProduction: applicationProfile.inProduction,
-  isSwaggerEnabled: applicationProfile.isSwaggerEnabled
+  isOpenAPIEnabled: applicationProfile.isOpenAPIEnabled,
 });
 
 const mapDispatchToProps = { getSession, getProfile };

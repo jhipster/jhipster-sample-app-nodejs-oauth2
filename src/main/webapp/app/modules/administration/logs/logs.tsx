@@ -13,12 +13,6 @@ export const LogsPage = (props: ILogsPageProps) => {
     props.getLoggers();
   }, []);
 
-  const getLogs = () => {
-    if (!props.isFetching) {
-      props.getLoggers();
-    }
-  };
-
   const changeLevel = (loggerName, level) => () => props.changeLogLevel(loggerName, level);
 
   const changeFilter = evt => setFilter(evt.target.value);
@@ -32,7 +26,9 @@ export const LogsPage = (props: ILogsPageProps) => {
 
   return (
     <div>
-      <h2 id="logs-page-heading">Logs</h2>
+      <h2 id="logs-page-heading" data-cy="logsPageHeading">
+        Logs
+      </h2>
       <p>There are {loggers.length.toString()} loggers.</p>
 
       <span>Filter</span>
@@ -109,7 +105,7 @@ export const LogsPage = (props: ILogsPageProps) => {
 
 const mapStateToProps = ({ administration }: IRootState) => ({
   logs: administration.logs,
-  isFetching: administration.loading
+  isFetching: administration.loading,
 });
 
 const mapDispatchToProps = { getLoggers, changeLogLevel };

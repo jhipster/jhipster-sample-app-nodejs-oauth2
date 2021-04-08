@@ -1,0 +1,7 @@
+{
+  "generator-jhipster-nodejs:2.0.0-beta.1": {
+    "promptValues": {
+      "nativeLanguage": "en"
+    }
+  }
+}

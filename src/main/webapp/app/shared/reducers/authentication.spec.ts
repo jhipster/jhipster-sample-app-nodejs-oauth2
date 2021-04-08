@@ -19,7 +19,7 @@ describe('Authentication reducer tests', () => {
         loading: false,
         isAuthenticated: false,
         errorMessage: null, // Errors returned from server side
-        redirectMessage: null
+        redirectMessage: null,
       });
       expect(isAccountEmpty(toTest));
     });
@@ -32,7 +32,7 @@ describe('Authentication reducer tests', () => {
       expect(toTest).toMatchObject({
         isAuthenticated: true,
         loading: false,
-        account: payload.data
+        account: payload.data,
       });
     });
 
@@ -42,7 +42,7 @@ describe('Authentication reducer tests', () => {
       expect(toTest).toMatchObject({
         isAuthenticated: false,
         loading: false,
-        account: payload.data
+        account: payload.data,
       });
     });
   });
@@ -55,7 +55,7 @@ describe('Authentication reducer tests', () => {
       expect(toTest).toMatchObject({
         loading: false,
         isAuthenticated: false,
-        errorMessage: payload
+        errorMessage: payload,
       });
       expect(isAccountEmpty(toTest));
     });
@@ -69,7 +69,7 @@ describe('Authentication reducer tests', () => {
         loading: false,
         isAuthenticated: false,
         errorMessage: null,
-        redirectMessage: null
+        redirectMessage: null,
       });
       expect(isAccountEmpty(toTest));
     });
@@ -81,7 +81,7 @@ describe('Authentication reducer tests', () => {
         loading: false,
         isAuthenticated: false,
         errorMessage: null,
-        redirectMessage: message
+        redirectMessage: message,
       });
       expect(isAccountEmpty(toTest));
     });
@@ -91,7 +91,7 @@ describe('Authentication reducer tests', () => {
       const toTest = authentication(undefined, { type: ACTION_TYPES.CLEAR_AUTH, message });
       expect(toTest).toMatchObject({
         loading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
       });
     });
   });
@@ -109,12 +109,12 @@ describe('Authentication reducer tests', () => {
     it('dispatches GET_SESSION_PENDING and GET_SESSION_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.GET_SESSION)
+          type: REQUEST(ACTION_TYPES.GET_SESSION),
         },
         {
           type: SUCCESS(ACTION_TYPES.GET_SESSION),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getSession());
       expect(store.getActions()).toEqual(expectedActions);
@@ -124,19 +124,19 @@ describe('Authentication reducer tests', () => {
       axios.post = sinon.stub().returns(Promise.resolve({}));
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.LOGOUT)
+          type: REQUEST(ACTION_TYPES.LOGOUT),
         },
         {
           payload: {},
-          type: SUCCESS(ACTION_TYPES.LOGOUT)
+          type: SUCCESS(ACTION_TYPES.LOGOUT),
         },
         {
-          type: REQUEST(ACTION_TYPES.GET_SESSION)
+          type: REQUEST(ACTION_TYPES.GET_SESSION),
         },
         {
           payload: resolvedObject,
-          type: SUCCESS(ACTION_TYPES.GET_SESSION)
-        }
+          type: SUCCESS(ACTION_TYPES.GET_SESSION),
+        },
       ];
       await store.dispatch(logout());
       expect(store.getActions()).toEqual(expectedActions);
@@ -146,11 +146,11 @@ describe('Authentication reducer tests', () => {
       const expectedActions = [
         {
           message: 'message',
-          type: ACTION_TYPES.ERROR_MESSAGE
+          type: ACTION_TYPES.ERROR_MESSAGE,
         },
         {
-          type: ACTION_TYPES.CLEAR_AUTH
-        }
+          type: ACTION_TYPES.CLEAR_AUTH,
+        },
       ];
       await store.dispatch(clearAuthentication('message'));
       expect(store.getActions()).toEqual(expectedActions);

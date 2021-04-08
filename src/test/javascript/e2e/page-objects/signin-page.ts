@@ -41,6 +41,7 @@ export default class SignInPage extends BasePage {
   }
 
   async loginWithOAuth(username: string, password: string) {
+    await browser.sleep(1000);
     if (await this.username.isPresent()) {
       await this.setUserName(username);
       await this.setPassword(password);

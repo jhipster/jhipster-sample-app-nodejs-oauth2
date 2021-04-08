@@ -14,10 +14,11 @@ import administration, {
   changeLogLevel,
   getConfigurations,
   getEnv,
-  getAudits
-} from 'app/modules/administration/administration.reducer';
+} from './administration.reducer';
 
 describe('Administration reducer tests', () => {
+  const username = process.env.E2E_USERNAME ?? 'admin';
+
   function isEmpty(element): boolean {
     if (element instanceof Array) {
       return element.length === 0;
@@ -30,11 +31,10 @@ describe('Administration reducer tests', () => {
     expect(state).toMatchObject({
       loading: false,
       errorMessage: null,
-      totalItems: 0
+      totalItems: 0,
     });
     expect(isEmpty(state.logs.loggers));
     expect(isEmpty(state.threadDump));
-    expect(isEmpty(state.audits));
   }
 
   function testMultipleTypes(types, payload, testFunction) {
@@ -59,13 +59,12 @@ describe('Administration reducer tests', () => {
           REQUEST(ACTION_TYPES.FETCH_THREAD_DUMP),
           REQUEST(ACTION_TYPES.FETCH_CONFIGURATIONS),
           REQUEST(ACTION_TYPES.FETCH_ENV),
-          REQUEST(ACTION_TYPES.FETCH_AUDITS)
         ],
         {},
         state => {
           expect(state).toMatchObject({
             errorMessage: null,
-            loading: true
+            loading: true,
           });
         }
       );
@@ -82,13 +81,12 @@ describe('Administration reducer tests', () => {
           FAILURE(ACTION_TYPES.FETCH_THREAD_DUMP),
           FAILURE(ACTION_TYPES.FETCH_CONFIGURATIONS),
           FAILURE(ACTION_TYPES.FETCH_ENV),
-          FAILURE(ACTION_TYPES.FETCH_AUDITS)
         ],
         'something happened',
         state => {
           expect(state).toMatchObject({
             loading: false,
-            errorMessage: 'something happened'
+            errorMessage: 'something happened',
           });
         }
       );
@@ -101,16 +99,16 @@ describe('Administration reducer tests', () => {
         data: {
           loggers: {
             main: {
-              effectiveLevel: 'WARN'
-            }
-          }
-        }
+              effectiveLevel: 'WARN',
+            },
+          },
+        },
       };
       const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_LOGS), payload });
 
       expect(toTest).toMatchObject({
         loading: false,
-        logs: payload.data
+        logs: payload.data,
       });
     });
 
@@ -120,7 +118,7 @@ describe('Administration reducer tests', () => {
 
       expect(toTest).toMatchObject({
         loading: false,
-        health: payload.data
+        health: payload.data,
       });
     });
 
@@ -130,7 +128,7 @@ describe('Administration reducer tests', () => {
 
       expect(toTest).toMatchObject({
         loading: false,
-        metrics: payload.data
+        metrics: payload.data,
       });
     });
 
@@ -140,7 +138,7 @@ describe('Administration reducer tests', () => {
 
       expect(toTest).toMatchObject({
         loading: false,
-        threadDump: payload.data
+        threadDump: payload.data,
       });
     });
 
@@ -152,33 +150,21 @@ describe('Administration reducer tests', () => {
         loading: false,
         configuration: {
           configProps: payload.data,
-          env: {}
-        }
+          env: {},
+        },
       });
     });
 
     it('should update state according to a successful fetch env request', () => {
-      const payload = { data: { activeProfiles: ['swagger', 'dev'] } };
+      const payload = { data: { activeProfiles: ['api-docs', 'dev'] } };
       const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_ENV), payload });
 
       expect(toTest).toMatchObject({
         loading: false,
         configuration: {
           configProps: {},
-          env: payload.data
-        }
-      });
-    });
-
-    it('should update state according to a successful fetch audits request', () => {
-      const headers = { ['x-total-count']: 1 };
-      const payload = { data: [{ id: 1, userLogin: 'admin' }], headers };
-      const toTest = administration(undefined, { type: SUCCESS(ACTION_TYPES.FETCH_AUDITS), payload });
-
-      expect(toTest).toMatchObject({
-        loading: false,
-        audits: payload.data,
-        totalItems: headers['x-total-count']
+          env: payload.data,
+        },
       });
     });
   });
@@ -195,117 +181,93 @@ describe('Administration reducer tests', () => {
     it('dispatches FETCH_HEALTH_PENDING and FETCH_HEALTH_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_HEALTH)
+          type: REQUEST(ACTION_TYPES.FETCH_HEALTH),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_HEALTH),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(systemHealth()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_METRICS_PENDING and FETCH_METRICS_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_METRICS)
+          type: REQUEST(ACTION_TYPES.FETCH_METRICS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_METRICS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(systemMetrics()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_THREAD_DUMP_PENDING and FETCH_THREAD_DUMP_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_THREAD_DUMP)
+          type: REQUEST(ACTION_TYPES.FETCH_THREAD_DUMP),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_THREAD_DUMP),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(systemThreadDump()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_LOGS_PENDING and FETCH_LOGS_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_LOGS)
+          type: REQUEST(ACTION_TYPES.FETCH_LOGS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_LOGS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getLoggers()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_LOGS_CHANGE_LEVEL_PENDING and FETCH_LOGS_CHANGE_LEVEL_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL)
+          type: REQUEST(ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL),
-          payload: resolvedObject
+          payload: resolvedObject,
         },
         {
-          type: REQUEST(ACTION_TYPES.FETCH_LOGS)
+          type: REQUEST(ACTION_TYPES.FETCH_LOGS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_LOGS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(changeLogLevel('ROOT', 'DEBUG')).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_CONFIGURATIONS_PENDING and FETCH_CONFIGURATIONS_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_CONFIGURATIONS)
+          type: REQUEST(ACTION_TYPES.FETCH_CONFIGURATIONS),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_CONFIGURATIONS),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getConfigurations()).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
     it('dispatches FETCH_ENV_PENDING and FETCH_ENV_FULFILLED actions', async () => {
       const expectedActions = [
         {
-          type: REQUEST(ACTION_TYPES.FETCH_ENV)
+          type: REQUEST(ACTION_TYPES.FETCH_ENV),
         },
         {
           type: SUCCESS(ACTION_TYPES.FETCH_ENV),
-          payload: resolvedObject
-        }
+          payload: resolvedObject,
+        },
       ];
       await store.dispatch(getEnv()).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
-    it('dispatches FETCH_AUDITS_PENDING and FETCH_AUDITS_FULFILLED actions with pagination variables - no sort', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_AUDITS)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_AUDITS),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(getAudits(1, 10, null, Date.now(), Date.now())).then(() => expect(store.getActions()).toEqual(expectedActions));
-    });
-    it('dispatches FETCH_AUDITS_PENDING and FETCH_AUDITS_FULFILLED actions with pagination variables - no dates', async () => {
-      const expectedActions = [
-        {
-          type: REQUEST(ACTION_TYPES.FETCH_AUDITS)
-        },
-        {
-          type: SUCCESS(ACTION_TYPES.FETCH_AUDITS),
-          payload: resolvedObject
-        }
-      ];
-      await store.dispatch(getAudits(1, 10, 'id,desc', null, null)).then(() => expect(store.getActions()).toEqual(expectedActions));
     });
   });
 });

@@ -7,13 +7,13 @@ import { UserOauth2Controller } from '../web/rest/user.oauth2.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorityRepository } from '../repository/authority.repository';
 
-import { AuthController } from '../web/rest/auth.controller';
+import { PublicUserController } from '../web/rest/public.user.controller';
 import { AccountController } from '../web/rest/account.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([AuthorityRepository]), UserModule, PassportModule, HttpModule],
-    controllers: [UserOauth2Controller, AuthController, AccountController],
-    providers: [AuthService, Oauth2Strategy],
-    exports: [AuthService],
+  imports: [TypeOrmModule.forFeature([AuthorityRepository]), UserModule, PassportModule, HttpModule],
+  controllers: [UserOauth2Controller, PublicUserController, AccountController],
+  providers: [AuthService, Oauth2Strategy],
+  exports: [AuthService],
 })
 export class AuthModule {}
